@@ -1,32 +1,42 @@
+// 백준 13300 방 배정
+
 #include <iostream>
-#include <algorithm>
 
 using namespace std;
 
-int Arr[6];
-
 int main()
 {
-	for (int i = 1; i <= 5; i++)
+	int Arr[2][7] = { 0, };
+
+	int N, K;
+	cin >> N >> K;
+
+	for (int i = 0; i < N; i++)
 	{
-		cin >> Arr[i];
+		int S, G;
+		cin >> S >> G;
+
+		Arr[S][G]++;
 	}
 
-	for (int i = 5; i >= 1; i--)
+	int Res = 0;
+	for (int i = 0; i < 2; i++)
 	{
-		for (int j = 1; j < i; j++)
+		for (int j = 1; j < 7; j++)
 		{
-			if (Arr[j] > Arr[j + 1])
+			if (Arr[i][j] != 0)
 			{
-				swap(Arr[j], Arr[j + 1]);
-				for (int k = 1; k <= 5; k++)
+				Res += Arr[i][j] / K;
+
+				if (Arr[i][j] % K != 0)
 				{
-					cout << Arr[k] << " ";
+					Res++;
 				}
-				cout << '\n';
 			}
 		}
 	}
+
+	cout << Res << '\n';
 
 	return 0;
 }
