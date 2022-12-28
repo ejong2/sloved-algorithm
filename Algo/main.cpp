@@ -1,4 +1,4 @@
-// 백준 13300 방 배정
+// 백준 1748 수 이어 쓰기 1
 
 #include <iostream>
 
@@ -6,37 +6,24 @@ using namespace std;
 
 int main()
 {
-	int Arr[2][7] = { 0, };
+	int N;
+	int cnt = 0;
 
-	int N, K;
-	cin >> N >> K;
+	cin >> N;
 
-	for (int i = 0; i < N; i++)
+	if (N < 10)
 	{
-		int S, G;
-		cin >> S >> G;
-
-		Arr[S][G]++;
+		cout << N << '\n';
+		return 0;
 	}
-
-	int Res = 0;
-	for (int i = 0; i < 2; i++)
+	else
 	{
-		for (int j = 1; j < 7; j++)
+		for (int i = 1; i <= N; i *= 10)
 		{
-			if (Arr[i][j] != 0)
-			{
-				Res += Arr[i][j] / K;
-
-				if (Arr[i][j] % K != 0)
-				{
-					Res++;
-				}
-			}
+			cnt += N - i + 1;
 		}
 	}
-
-	cout << Res << '\n';
+	cout << cnt << '\n';
 
 	return 0;
 }
