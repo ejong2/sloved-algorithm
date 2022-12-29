@@ -1,28 +1,41 @@
-// 백준 1748 수 이어 쓰기 1
+// 백준 3986 좋은 단어
 
 #include <iostream>
+#include <stack>
 
 using namespace std;
 
 int main()
 {
 	int N;
-	int cnt = 0;
-
 	cin >> N;
 
-	if (N < 10)
+	int cnt = 0;
+
+	while (N--)
 	{
-		cout << N << '\n';
-		return 0;
-	}
-	else
-	{
-		for (int i = 1; i <= N; i *= 10)
+		string s;
+		stack<int> st;
+
+		cin >> s;
+
+		for (auto e : s)
 		{
-			cnt += N - i + 1;
+			if (!st.empty() && st.top() == e)
+			{
+				st.pop();
+			}
+			else
+			{
+				st.push(e);
+			}
+		}
+		if (st.empty())
+		{
+			cnt++;
 		}
 	}
+
 	cout << cnt << '\n';
 
 	return 0;
