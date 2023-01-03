@@ -1,6 +1,7 @@
-// 백준 2606 바이러스 DFS
+// 백준 2606 바이러스 BFS
 
 #include <iostream>
+#include <queue>
 #include <vector>
 
 #define MAX 101
@@ -10,21 +11,28 @@ using namespace std;
 int N, M;
 int cnt = 0;
 bool visited[MAX];
+queue<int> q;
 vector<int> v[MAX];
 
-void DFS(int x)
+void BFS(int x)
 {
 	visited[x] = true;
+	q.push(x);
 
-	for (int i = 0; i < v[x].size(); i++)
+	while (!q.empty())
 	{
-		int y = v[x][i];
+		int x = q.front();
+		q.pop();
 
-		if (!visited[y])
+		for (int i = 0; i < v[x].size(); i++)
 		{
-			visited[y] = true;
-			DFS(y);
-			cnt++;
+			int y = v[x][i];
+			if (!visited[y])
+			{
+				visited[y] = true;
+				q.push(y);
+				cnt++;
+			}
 		}
 	}
 }
@@ -32,6 +40,7 @@ void DFS(int x)
 int main()
 {
 	cin >> N >> M;
+
 	for (int i = 0; i < M; i++)
 	{
 		int a, b;
@@ -40,7 +49,8 @@ int main()
 		v[a].push_back(b);
 		v[b].push_back(a);
 	}
-	DFS(1);
+
+	BFS(1);
 
 	cout << cnt << '\n';
 
