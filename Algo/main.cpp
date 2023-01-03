@@ -1,42 +1,31 @@
-// 백준 3986 좋은 단어
+// 백준 11659 구간 합 구하기 4
 
 #include <iostream>
-#include <stack>
 
 using namespace std;
 
+long long Arr[100001];
+
 int main()
 {
-	int N;
-	cin >> N;
+	ios_base::sync_with_stdio(false); cout.tie(NULL); cin.tie(NULL);
 
-	int cnt = 0;
+	int N, M;
+	cin >> N >> M;
 
-	while (N--)
+	for (int i = 0; i < N; i++)
 	{
-		string s;
-		stack<int> st;
-
-		cin >> s;
-
-		for (auto e : s)
-		{
-			if (!st.empty() && st.top() == e)
-			{
-				st.pop();
-			}
-			else
-			{
-				st.push(e);
-			}
-		}
-		if (st.empty())
-		{
-			cnt++;
-		}
+		int a;
+		cin >> a;
+		Arr[i + 1] = Arr[i] + a;
 	}
+	for (int i = 0; i < M; i++)
+	{
+		int b, c;
+		cin >> b >> c;
 
-	cout << cnt << '\n';
+		cout << Arr[c] - Arr[b - 1] << '\n';
+	}
 
 	return 0;
 }
