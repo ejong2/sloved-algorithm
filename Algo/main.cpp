@@ -1,31 +1,48 @@
-// 백준 11659 구간 합 구하기 4
+// 백준 2606 바이러스 DFS
 
 #include <iostream>
+#include <vector>
+
+#define MAX 101
 
 using namespace std;
 
-long long Arr[100001];
+int N, M;
+int cnt = 0;
+bool visited[MAX];
+vector<int> v[MAX];
+
+void DFS(int x)
+{
+	visited[x] = true;
+
+	for (int i = 0; i < v[x].size(); i++)
+	{
+		int y = v[x][i];
+
+		if (!visited[y])
+		{
+			visited[y] = true;
+			DFS(y);
+			cnt++;
+		}
+	}
+}
 
 int main()
 {
-	ios_base::sync_with_stdio(false); cout.tie(NULL); cin.tie(NULL);
-
-	int N, M;
 	cin >> N >> M;
-
-	for (int i = 0; i < N; i++)
-	{
-		int a;
-		cin >> a;
-		Arr[i + 1] = Arr[i] + a;
-	}
 	for (int i = 0; i < M; i++)
 	{
-		int b, c;
-		cin >> b >> c;
+		int a, b;
+		cin >> a >> b;
 
-		cout << Arr[c] - Arr[b - 1] << '\n';
+		v[a].push_back(b);
+		v[b].push_back(a);
 	}
+	DFS(1);
+
+	cout << cnt << '\n';
 
 	return 0;
 }
