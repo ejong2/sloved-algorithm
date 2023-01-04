@@ -1,58 +1,36 @@
-// 백준 2606 바이러스 BFS
+// 백준 11441 합 구하기
 
 #include <iostream>
-#include <queue>
-#include <vector>
 
-#define MAX 101
+#define MAX 100001
 
 using namespace std;
 
-int N, M;
-int cnt = 0;
-bool visited[MAX];
-queue<int> q;
-vector<int> v[MAX];
-
-void BFS(int x)
-{
-	visited[x] = true;
-	q.push(x);
-
-	while (!q.empty())
-	{
-		int x = q.front();
-		q.pop();
-
-		for (int i = 0; i < v[x].size(); i++)
-		{
-			int y = v[x][i];
-			if (!visited[y])
-			{
-				visited[y] = true;
-				q.push(y);
-				cnt++;
-			}
-		}
-	}
-}
+int Arr[MAX];
 
 int main()
 {
-	cin >> N >> M;
-
-	for (int i = 0; i < M; i++)
+	int T;
+	cin >> T;
+	for (int i = 0; i < T; i++)
 	{
-		int a, b;
-		cin >> a >> b;
+		int a;
+		scanf_s("%d", &a);
 
-		v[a].push_back(b);
-		v[b].push_back(a);
+		Arr[i + 1] = Arr[i] + a;
 	}
 
-	BFS(1);
+	int N;
+	cin >> N;
 
-	cout << cnt << '\n';
+	for (int i = 0; i < N; i++)
+	{
+		int b, c;
+		scanf_s("%d", &b);
+		scanf_s("%d", &c);
+
+		printf("%d\n", Arr[c] - Arr[b - 1]);
+	}
 
 	return 0;
 }
