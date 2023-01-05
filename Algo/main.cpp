@@ -1,39 +1,42 @@
-// 백준 11660 구간 합 구하기 5
+// 백준 9093 단어 뒤집기
 
 #include <iostream>
+#include <string>
+#include <stack>
 
-#define MAX 1025
-
-int DP[MAX][MAX];
-int MAP[MAX][MAX];
+using namespace std;
 
 int main()
 {
-	int N, M;
-	scanf("%d %d", &N, &M);
+	int T;
+	cin >> T;
+	cin.ignore();
 
+	stack<char> st;
 
-	for (int i = 1; i <= N; i++)
+	while (T--)
 	{
-		for (int j = 1; j <= N; j++)
+		string str;
+		getline(cin, str);
+		str += ' ';
+
+		for (auto e : str)
 		{
-
-			scanf("%d", &MAP[i][j]);
-			DP[i][j] = DP[i - 1][j] + DP[i][j - 1] - DP[i - 1][j - 1] + MAP[i][j];
+			if (e == ' ')
+			{
+				while (!st.empty())
+				{
+					cout << st.top();
+					st.pop();
+				}
+				cout << e;
+			}
+			else
+			{
+				st.push(e);
+			}
 		}
-	}
-	
-	int x1, x2, y1, y2;
-	int ans;
-
-	for (int i = 0; i < M; i++)
-	{
-		scanf("%d %d", &x1, &y1);
-		scanf("%d %d", &x2, &y2);
-
-		ans = DP[x2][y2] - DP[x1 - 1][y2] - DP[x2][y1 - 1] + DP[x1 - 1][y1 - 1];
-
-		printf("%d\n", ans);
+		cout << '\n';
 	}
 
 	return 0;
