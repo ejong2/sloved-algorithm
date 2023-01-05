@@ -1,30 +1,31 @@
-// 소수 찾기 알고리즘
-
 #include <iostream>
 
 using namespace std;
 
 int main()
 {
-	int N;
-	int cnt = 0;
+	int Number;
+	cin >> Number;
 
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < Number; i++)
 	{
-		int a;
-		cin >> a;
+		int sum = i;
+		int pt = i;
 
-		for (int j = 2; j <= a; j++)
+		while (pt)
 		{
-			if (a == j)
-			{
-				cnt++;
-			}
-			if (a % j == 0) break;
+			sum += pt % 10;
+			pt /= 10;
+		}    
+
+		if (Number == sum)
+		{
+			cout << i << '\n';
+			return 0;
 		}
 	}
 
-	cout << cnt << '\n';
+	cout << "0" << '\n';
 
 	return 0;
 }
