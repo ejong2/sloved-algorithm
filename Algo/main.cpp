@@ -1,36 +1,43 @@
-// 백준 1436 영화감독 숌
+// 백준 15649 N과 M (1)
 
 #include <iostream>
 
+#define MAX 9
+
 using namespace std;
+
+int N, M;
+int Arr[MAX];
+bool visited[MAX];
+
+void DFS(int cnt)
+{
+	if (cnt == M)
+	{
+		for (int i = 0; i < M; i++)
+		{
+			cout << Arr[i] << ' ';
+		}
+		cout << '\n';
+		return;
+	}
+	for (int i = 1; i <= N; i++)
+	{
+		if (!visited[i])
+		{
+			visited[i] = true;
+			Arr[cnt] = i;
+			DFS(cnt + 1);
+			visited[i] = false;
+		}
+	}
+}
 
 int main()
 {
-	int start = 666, cnt = 0, tmp;
-	int N;
-	cin >> N;
+	cin >> N >> M;
 
-	while (1)
-	{
-		tmp = start;
-		do
-		{
-			if (tmp % 1000 == 666)
-			{
-				cnt++;
-				break;
-			}
-			tmp /= 10;
-
-		} while (tmp > 0);
-
-		if (cnt == N)
-		{
-			cout << start << '\n';
-			break;
-		}
-		start++;
-	}
+	DFS(0);
 
 	return 0;
 }
