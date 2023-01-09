@@ -1,62 +1,66 @@
 #include <iostream>
+#include <queue>
+#include <vector>
+
+#define MAX 101
 
 using namespace std;
 
-/* -----------------------------------------------------
-퀵 정렬 : 특정한 값을 기준으로 큰 숫자와 작은 숫자를 나누기
-퀵 정렬의 시간복잡도는 O(N*logN) - 평균속도
-퀵 정렬의 최악 시간복잡도는 O(N^2)
-------------------------------------------------------*/ 
+int N, M;
+int MAP[MAX][MAX];
+int Cnt[MAX][MAX];
+bool visited[MAX][MAX];
 
-void quickSort(int* data, int start, int end)
+int dx[] = { 0, 0, -1, 1 };
+int dy[] = { -1, 1, 0, 0 };
+
+void BFS(int x, int y)
 {
-	if (start >= end)	// 원소가 1개인 경우
+	queue<pair<int, int>> q;
+
+	Cnt[x][y]++;
+	visited[x][y] = true;
+	q.push({ x, y });
+
+	while (!q.empty())
 	{
-		return;
+		int x = q.front().first;
+		int y = q.front().second;
+		q.pop();
+
+		for (int i = 0; i < 4; i++)
+		{
+			int nx = x + dx[i];
+			int ny = y + dy[i];
+
+			if (nx >= 0 && ny >= 0 && nx < N && ny < M)
+			{
+				if (MAP[nx][ny] == 1 && !visited[nx][ny])
+				{
+					Cnt[nx][ny] = Cnt[x][y] + 1;
+					visited[nx][ny] = true;
+					q.push(make_pair(nx, ny));
+				}
+			}
+		}
+
 	}
-
-	int key = start;	// 키는 첫번째 원소
-	int i = start + 1;
-	int j = end;
-	int temp;
-
-	while (i <= j)		// 엇갈릴 때까지 반복
-	{	
-		while (data[i] <= data[key]) // 키 값보다 큰 값을 만날 때까지
-		{
-			i++;
-		}
-		while (data[j] >= data[key] && j > start) // 키 값보다 작은 값을 만날 때까지
-		{
-			j--;
-		}
-		if (i > j)	// 현재 엇갈린 상태면 키 값과 교체
-		{
-			temp = data[j];
-			data[j] = data[key];
-			data[key] = temp;
-		}
-		else
-		{
-			temp = data[j];
-			data[j] = data[i];
-			data[i] = temp;
-		}
-	}
-
-	quickSort(data, start, j - 1);
-	quickSort(data, j + 1, end);
 }
 
 int main()
 {
-	int number = 10;
-	int data[10] = { 1, 10, 5, 8, 7, 6, 4, 3, 2, 9 };
-
-	quickSort(data, 0, number - 1);
-	for (int i = 0; i < number; i++)
+	cin >> N >> M;
+	for (int i = 0; i < N; i++)
 	{
-		cout << data[i] << ' ';
+		for (int j = 0; j < M; j++)
+		{
+			scanf_s("%1d", &MAP[i][j]);
+		}
 	}
+
+	BFS(0, 0);
+
+	cout << Cnt[N - 1][M - 1] << '\n';
+
 	return 0;
 }
