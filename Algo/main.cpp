@@ -1,64 +1,56 @@
 #include <iostream>
-#include <queue>
 #include <vector>
 
 #define MAX 7
 
 using namespace std;
 
-int number[MAX];
+int Number[MAX];
 bool visited[MAX];
-vector<int> v[8];
+vector<int> v[MAX + 1];
 
-void BFS(int x)
+void DFS(int x)
 {
-	queue<int> q;
-	q.push(x);
-	visited[x] = true;
-	
-	while (!q.empty())
+	if (visited[x])
 	{
-		int x = q.front();
-		q.pop();
+		return;
+	}
+	visited[x] = true;
 
-		cout << x << ' ';
-		
-		for (int i = 0; i < v[x].size(); i++)
-		{
-			int y = v[x][i];
-			if (!visited[y])
-			{
-				q.push(y);
-				visited[y] = true;
-			}
-		}
+	cout << x << ' ';
+
+	for (int i = 0; i < v[x].size(); i++)
+	{
+		int y = v[x][i];
+		DFS(y);
 	}
 }
 
 int main()
 {
-	v[1].push_back(2);
-	v[2].push_back(1);
+    v[1].push_back(2);
+    v[2].push_back(1);
 
-	v[1].push_back(3);
-	v[3].push_back(1);
+    v[1].push_back(3);
+    v[3].push_back(1);
 
-	v[2].push_back(3);
-	v[3].push_back(2);
+    v[2].push_back(3);
+    v[3].push_back(2);
 
-	v[2].push_back(4);
-	v[4].push_back(2);
+    v[2].push_back(4);
+    v[4].push_back(2);
 
-	v[2].push_back(5);
-	v[5].push_back(2);
+    v[2].push_back(5);
+    v[5].push_back(2);
 
-	v[3].push_back(6);
-	v[6].push_back(3);
+    v[3].push_back(6);
+    v[6].push_back(3);
 
-	v[3].push_back(7);
-	v[7].push_back(3);
+    v[3].push_back(7);
+    v[7].push_back(3);
 
-	BFS(1);
+    DFS(1);  // dfs함수의 시작점을 설정하고 실행
+
 
 	return 0;
 }
