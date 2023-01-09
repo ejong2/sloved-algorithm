@@ -1,56 +1,62 @@
 #include <iostream>
-#include <vector>
-
-#define MAX 7
 
 using namespace std;
 
-int Number[MAX];
-bool visited[MAX];
-vector<int> v[MAX + 1];
+/* -----------------------------------------------------
+퀵 정렬 : 특정한 값을 기준으로 큰 숫자와 작은 숫자를 나누기
+퀵 정렬의 시간복잡도는 O(N*logN) - 평균속도
+퀵 정렬의 최악 시간복잡도는 O(N^2)
+------------------------------------------------------*/ 
 
-void DFS(int x)
+void quickSort(int* data, int start, int end)
 {
-	if (visited[x])
+	if (start >= end)	// 원소가 1개인 경우
 	{
 		return;
 	}
-	visited[x] = true;
 
-	cout << x << ' ';
+	int key = start;	// 키는 첫번째 원소
+	int i = start + 1;
+	int j = end;
+	int temp;
 
-	for (int i = 0; i < v[x].size(); i++)
-	{
-		int y = v[x][i];
-		DFS(y);
+	while (i <= j)		// 엇갈릴 때까지 반복
+	{	
+		while (data[i] <= data[key]) // 키 값보다 큰 값을 만날 때까지
+		{
+			i++;
+		}
+		while (data[j] >= data[key] && j > start) // 키 값보다 작은 값을 만날 때까지
+		{
+			j--;
+		}
+		if (i > j)	// 현재 엇갈린 상태면 키 값과 교체
+		{
+			temp = data[j];
+			data[j] = data[key];
+			data[key] = temp;
+		}
+		else
+		{
+			temp = data[j];
+			data[j] = data[i];
+			data[i] = temp;
+		}
 	}
+
+	quickSort(data, start, j - 1);
+	quickSort(data, j + 1, end);
 }
 
 int main()
 {
-    v[1].push_back(2);
-    v[2].push_back(1);
+	int number = 10;
+	int data[10] = { 1, 10, 5, 8, 7, 6, 4, 3, 2, 9 };
 
-    v[1].push_back(3);
-    v[3].push_back(1);
-
-    v[2].push_back(3);
-    v[3].push_back(2);
-
-    v[2].push_back(4);
-    v[4].push_back(2);
-
-    v[2].push_back(5);
-    v[5].push_back(2);
-
-    v[3].push_back(6);
-    v[6].push_back(3);
-
-    v[3].push_back(7);
-    v[7].push_back(3);
-
-    DFS(1);  // dfs함수의 시작점을 설정하고 실행
-
-
+	quickSort(data, 0, number - 1);
+	for (int i = 0; i < number; i++)
+	{
+		cout << data[i] << ' ';
+	}
 	return 0;
 }
