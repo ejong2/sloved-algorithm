@@ -1,33 +1,23 @@
 #include <string>
 #include <vector>
-#include <sstream>
 #include <iostream>
 #include <algorithm>
 
 using namespace std;
 
-int solution(int num, int k)
+int solution(vector<int> v)
 {
-	int answer = 0;
-
-	string s = to_string(num);
-	string v = to_string(k);
-
-	for (int i = 0; i < s.length(); i++)
-	{
-		answer = -1;
-
-		if (s[i] == v[0])
-		{
-			return answer = i + 1;
-		}		
-	}
-	return answer;
+    if (v[0] < v[1])
+        swap(v[0], v[1]);
+    return v[1] * 2 - 1;
 }
+
 
 int main()
 {
-	cout << solution(29183, 1);
+    string s = "aAb1B2cC34oOp";
 
-	return 0;
+    cout << solution();
+
+    return 0;
 }
