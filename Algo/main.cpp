@@ -1,18 +1,30 @@
 #include <iostream>
+#include <string>
+
 using namespace std;
 
-int main(void)
+int main()
 {
-	ios_base::sync_with_stdio(0);
-	cin.tie(0);
-	int N;
-	cin >> N;
+	int T;
+	cin >> T;
 
-	int row = N / 2 + 1;
-	int col = N - row + 2;
-	int result = row * col;
+	while (T--)
+	{
+		int a, b;
+		cin >> a >> b;
 
-	cout << result << "\n";
+		int cnt = 0;
+		for (int i = a; i <= b; i++)
+		{
+			string s = to_string(i);
+
+			for (auto e : s)
+			{
+				if (e == '0') cnt++;
+			}
+		}
+		cout << cnt << '\n';
+	}
 
 	return 0;
 }
