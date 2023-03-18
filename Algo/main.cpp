@@ -1,23 +1,29 @@
 #include <iostream>
-#include <string>
+#include <algorithm>
 
 using namespace std;
 
 int main()
 {
-	int N;
-	cin >> N;
+	int n;
+	cin >> n;
 
-	int cnt = 0;
-	for (int i = 1; i <= N; i++)
+	string s1, s2;
+	while (n--)
 	{
-		for (auto e : to_string(i))
+		cin >> s1 >> s2;
+		sort(s1.begin(), s1.end());
+		sort(s2.begin(), s2.end());
+
+		if (s1 == s2)
 		{
-			if (e == '3' || e == '6' || e == '9') cnt++;
+			cout << "Possible" << '\n';
+		}
+		else
+		{
+			cout << "Impossible" << '\n';
 		}
 	}
-
-	cout << cnt << '\n';
 
 	return 0;
 }
