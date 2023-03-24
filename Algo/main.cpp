@@ -1,28 +1,18 @@
 #include <iostream>
-#include <algorithm>
 
 using namespace std;
 
 int main()
 {
-	int n;
-	cin >> n;
+	int N;
+	cin >> N;
 
-	string s1, s2;
-	while (n--)
+	for (int i = 0; i < N; i++)
 	{
-		cin >> s1 >> s2;
-		sort(s1.begin(), s1.end());
-		sort(s2.begin(), s2.end());
+		string s;
+		cin >> s;
 
-		if (s1 == s2)
-		{
-			cout << "Possible" << '\n';
-		}
-		else
-		{
-			cout << "Impossible" << '\n';
-		}
+		cout << ((s.length() >= 6 && s.length() <= 9) ? "yes" : "no") << '\n';
 	}
 
 	return 0;
